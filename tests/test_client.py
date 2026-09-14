@@ -168,4 +168,5 @@ class TestStr(unittest.TestCase):
         expected = "test client [1] - testemail@testdomain.com"
         self.assertEqual(actual,expected)
 
-    
+if __name__ == "__main__":
+    unittest.main()

@@ -275,10 +275,5 @@ class TestStr(unittest.TestCase):
         expected = "Account Number: 1 Balance: $100"
         self.assertEqual(expected,actual)
 
-
-
-
-
-
 if __name__ == "__main__":
     unittest.main()
