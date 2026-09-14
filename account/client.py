@@ -2,7 +2,6 @@
 meant to represent one client and their information."""
 
 from email_validator import validate_email,EmailNotValidError
-from account.account_status import AccountStatus
 
 __author__ = "Cody Wiebe-Kehler"
 __version__ = "1.0.0"
@@ -58,10 +57,10 @@ class Client():
             # check_deliverability is set to false to not do network checks 
             # like seeing if the email address is actually registered or not
             valid_email = validate_email(email_address, check_deliverability = False)
-            self.__email_address = valid_email
+            self.__email_address = valid_email.normalized
 
         except EmailNotValidError as exception:
-            print(f"Error: {exception}")
+            raise(exception)
 
     def __str__(self):
         return (f"{self.name} [{self.client_id}] - {self.email_address}")

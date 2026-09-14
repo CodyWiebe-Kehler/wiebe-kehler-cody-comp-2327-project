@@ -58,6 +58,7 @@ class TestInit(unittest.TestCase):
         self.assertEqual(AccountStatus.ACTIVE,account._BankAccount__status)
 
 class TestAccountIdProperty(unittest.TestCase):
+    """Defines tests for the account id property"""
     def test_returns_current_state(self):
         #arrange
         account_id = 1
@@ -74,6 +75,7 @@ class TestAccountIdProperty(unittest.TestCase):
         self.assertEqual(actual,expected)
 
 class TestBalanceProperty(unittest.TestCase):
+    """Defines tests for the account balance property"""
     def test_returns_current_state(self):
         #arrange
         account_id = 1
@@ -90,6 +92,7 @@ class TestBalanceProperty(unittest.TestCase):
         self.assertEqual(actual,expected)
 
 class TestOwnerProperty(unittest.TestCase):
+    """Defines tests for the account owner property"""
     def test_returns_current_state(self):
         #arrange
         account_id = 1
@@ -106,6 +109,7 @@ class TestOwnerProperty(unittest.TestCase):
         self.assertEqual(actual,expected)
 
 class TestStatusProperty(unittest.TestCase):
+    """Defines tests for the account status property"""
     def test_returns_current_state(self):
         #arrange
         account_id = 1
@@ -122,6 +126,7 @@ class TestStatusProperty(unittest.TestCase):
         self.assertEqual(actual,expected)
 
 class TestUpdateBalanceMethod(unittest.TestCase):
+    """Defines tests for the update balance method"""
     def test_increase_balance(self):
         #arrange
         account_id = 1
@@ -153,6 +158,7 @@ class TestUpdateBalanceMethod(unittest.TestCase):
         self.assertEqual(account.balance,actual)
 
 class TestDepositMethod(unittest.TestCase):
+    """Defines tests for the deposit method"""
     def test_amount_less_than_0(self):
         #arrange
         account_id = 1
@@ -186,6 +192,7 @@ class TestDepositMethod(unittest.TestCase):
         self.assertEqual(account.balance,actual)
 
 class TestWithdrawlMethod(unittest.TestCase):
+    """Defines tests for the withdrawl method"""
     def test_amount_less_than_0(self):
         #arrange
         account_id = 1
@@ -252,7 +259,7 @@ class TestWithdrawlMethod(unittest.TestCase):
         self.assertEqual(account.balance,expected)
 
 class TestStr(unittest.TestCase):
-
+    """Defines tests for the __str__ method"""
     def test_returns_string_representation(self):
         #arrange
         account_id = 1
