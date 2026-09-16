@@ -8,6 +8,20 @@ __version__ = "1.0.0"
 
 class Client():
     def __init__(self, client_id : int, name : str, email_address : str):
+        """Initializes a new instance of the Client class
+
+        Args:
+            client_id (int): The identification number of the client
+            name (str): The name of the client
+            email_address (str): The email address of the client
+
+        Raises:
+            ValueError: Raised when the client_id passed in is less than or 
+                equal to 0
+            ValueError: Raised when the name passed in is an empty string,
+                empty includes strings containing only blank space characters.
+        
+        """
 
         if client_id <= 0:
             raise ValueError("client_id must be a value greater than zero")
@@ -51,7 +65,16 @@ class Client():
 
     @email_address.setter
     def email_address(self, email_address : str) -> None:
-        """sets the value for the email address property"""
+        """sets the value for the email address property
+        
+        Args:
+            email_address (str): the email address to set the clients
+                email address to.
+
+        Raises:
+            EmailNotValidError: Raised when the email_address argument passed 
+                in is not a valid, properly formatted email address.
+        """
 
         try:
             # check_deliverability is set to false to not do network checks 

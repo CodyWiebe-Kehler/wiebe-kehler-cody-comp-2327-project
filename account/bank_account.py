@@ -12,6 +12,23 @@ class BankAccount():
     def __init__(self, account_id : int, balance : Decimal, owner : Client, 
                  status: AccountStatus):
 
+        """Initializes a new instance of the BankAccount class.
+
+        Args:
+            account_id (int): The identification number for this bank account
+                instance.
+            balance (Decimal): The current bank account balance at the time of
+                instance creation.
+            owner (Client): The Client object instance representing the owner 
+                of this bank account.
+            status (AccountStatus): The current state of the account, where
+                the value is one of the AccountStatus enumeration values. 
+        
+        Raises:
+            ValueError: Raised when the account_id parameter is passed in as
+                a value that is less than zero.
+        """
+
         if account_id <= 0:
             raise ValueError("account_id must be a value greater than zero")
         
@@ -64,6 +81,12 @@ class BankAccount():
         return self.__balance
 
     def __str__(self):
+        """Returns the string representation of the BankAccount instance
+        
+        Returns:
+            str: The string representation of the BankAccount instance
+        """
+
         return f"Account Number: {self.account_id} Balance: ${self.__balance}"
 
     def update_balance(self, amount : Decimal) -> None:

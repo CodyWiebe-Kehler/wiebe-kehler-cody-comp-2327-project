@@ -154,6 +154,7 @@ class TestClientIdProperty(unittest.TestCase):
         self.assertEqual(client.email_address,expected)
 
 class TestStr(unittest.TestCase):
+    """Defines tests for the __str__ method"""
     def test_returns_string_representation(self):
         #arrange
         client_id = 1
