@@ -7,6 +7,8 @@ __author__ = "Cody Wiebe-Kehler"
 __version__ = "1.0.0"
 
 class Client():
+    """This class represents a single client and thier information in the banking system"""
+
     def __init__(self, client_id : int, name : str, email_address : str):
         """Initializes a new instance of the Client class
 

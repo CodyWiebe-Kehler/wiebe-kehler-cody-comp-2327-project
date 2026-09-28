@@ -10,6 +10,10 @@ __author__ = "Cody Wiebe-Kehler"
 __version__ = "1.0.0"
 
 class Transaction(ABC):
+    """This class represents one transaction made by an account in the banking
+      system.
+    """
+
     def __init__(self,
                  transaction_id: str,
                  amount: Decimal,

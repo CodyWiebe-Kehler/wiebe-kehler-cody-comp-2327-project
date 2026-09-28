@@ -9,6 +9,8 @@ __author__ = "Cody Wiebe-Kehler"
 __version__ = "1.0.0"
 
 class BankAccount():
+    """This class represents one bank account belonging to a member of the bank"""
+
     def __init__(self, account_id : int, balance : Decimal, owner : Client, 
                  status: AccountStatus):
 
