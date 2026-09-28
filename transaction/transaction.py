@@ -103,10 +103,11 @@ class Transaction(ABC):
     @abstractmethod
     @property
     def fees(self) -> Decimal:
-        """Gets the fees associated with the transaction
+        """Gets the fees to debit from the account when a transaction is processed
         
             Returns:
-                fees (Decimal): The fee amount
+                fees (Decimal): The fee amount to debit from the account when
+                    a transaction is processed
         """
         pass
 
@@ -122,8 +123,8 @@ class Transaction(ABC):
                 str: The string representation of this transaction object
         """
 
-        return (f"ID: {self.__transaction_id}"
-                f"STATUS: {self.__status}"
-                f"AMOUNT: {self.__amount}"
+        return (f"ID: {self.__transaction_id}\n"
+                f"STATUS: {self.__status}\n"
+                f"AMOUNT: {self.__amount}\n"
                 f"SOURCE ACCT: {self.__account.account_id}")
     
