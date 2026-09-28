@@ -112,7 +112,7 @@ class BankAccount():
         if amount < 0:
             raise ValueError("amount must be a value greater than or equal to zero")
 
-        self.__balance = self.__balance + amount
+        self.__balance = Decimal(self.__balance) + Decimal(amount)
 
     def withdraw(self, amount : Decimal) -> None:
         """Subtracts the given amount from the balance of the account, amount must be 
@@ -128,4 +128,4 @@ class BankAccount():
         if amount > self.__balance:
             raise ValueError("amount cannot exceed the account balance")
 
-        self.__balance = self.__balance - amount
+        self.__balance = Decimal(self.__balance) - Decimal(amount)

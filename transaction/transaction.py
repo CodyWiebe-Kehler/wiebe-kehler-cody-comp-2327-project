@@ -100,8 +100,8 @@ class Transaction(ABC):
 
         self.__status = status
 
-    @abstractmethod
     @property
+    @abstractmethod
     def fees(self) -> Decimal:
         """Gets the fees to debit from the account when a transaction is processed
         
@@ -124,7 +124,7 @@ class Transaction(ABC):
         """
 
         return (f"ID: {self.__transaction_id}\n"
-                f"STATUS: {self.__status}\n"
-                f"AMOUNT: {self.__amount}\n"
+                f"STATUS: {self.__status.name}\n"
+                f"AMOUNT: ${self.__amount:0.2f}\n"
                 f"SOURCE ACCT: {self.__account.account_id}")
     
