@@ -1,3 +1,4 @@
+"""This module defines the enumeration for the possible status' of a bank account"""
 from enum import Enum
 
 class AccountStatus(Enum):
