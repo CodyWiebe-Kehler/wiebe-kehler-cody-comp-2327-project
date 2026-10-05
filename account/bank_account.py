@@ -12,8 +12,7 @@ class BankAccount():
     """This class represents one bank account belonging to a member of the bank"""
 
     def __init__(self, account_id : int, balance : Decimal, owner : Client, 
-                 status: AccountStatus):
-
+                 status: AccountStatus) -> None:
         """Initializes a new instance of the BankAccount class.
 
         Args:
@@ -82,7 +81,7 @@ class BankAccount():
 
         return self.__balance
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Returns the string representation of the BankAccount instance
         
         Returns:

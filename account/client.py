@@ -87,7 +87,7 @@ class Client():
         except EmailNotValidError as exception:
             raise(exception)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return (f"{self.name} [{self.client_id}] - {self.email_address}")
         
     
