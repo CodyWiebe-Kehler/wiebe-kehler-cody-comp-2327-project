@@ -15,7 +15,7 @@ class LoggingListener(EventListener):
                 sender (Transaction): The sender object to notify on an update event
             Raises:
                 TypeError: raised when
-                    - send is not a Transaction type
+                    - sender is not a Transaction type
         """
 
         if isinstance(sender, Transaction):
