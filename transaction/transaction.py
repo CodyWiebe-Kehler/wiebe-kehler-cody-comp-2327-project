@@ -111,10 +111,10 @@ class Transaction(ABC):
         """
 
         # returns fee of $0.0 if no fee strategy is applied
-        if not hasattr(self,'__fee_strategy'):
-            return Decimal(0.0)
+        if hasattr(self,'_fee_strategy'):
+            return self._fee_strategy.get_fee(self.__amount)
         else:
-            return self.__fee_strategy.get_fee(self.__amount)
+            return Decimal(0.0)
 
     @abstractmethod
     def process(self) -> None:
@@ -129,7 +129,7 @@ class Transaction(ABC):
                     calculating fees on this transaction
         """
 
-        self.__fee_strategy = strategy
+        self._fee_strategy = strategy
 
     def __str__(self) -> str:
         """Returns the string representation of this Transaction Object

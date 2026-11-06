@@ -3,6 +3,7 @@ import unittest
 from account import *
 from transaction import *
 from decimal import Decimal
+from fee import *
 
 __author__ = "Cody Wiebe-Kehler"
 __version__ = "1.0.0"
@@ -79,7 +80,8 @@ class TestFeesProperty(unittest.TestCase):
         #arrange/act
         transaction = BankTransferTransaction("test transaction", 1, TransactionStatus.PENDING,
                                             self.valid_account, self.valid_account_2)
-
+        transaction.set_fee_strategy(BasePercentageFeeStrategy(Decimal(1.00),Decimal(0.007)))
+        
         #assert
         self.assertEqual(1, transaction.fees)
 
@@ -88,7 +90,6 @@ class TestFeesProperty(unittest.TestCase):
         #arrange/act
         transaction = BankTransferTransaction("test transaction", 1000, TransactionStatus.PENDING,
                                                     self.valid_account, self.valid_account_2)
-
         #assert
         self.assertEqual(7, transaction.fees)
 
