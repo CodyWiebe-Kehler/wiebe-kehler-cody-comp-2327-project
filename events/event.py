@@ -11,7 +11,7 @@ class Event():
     def __init__(self):
         """Initializes an instance of the Event class"""
 
-        self.__listeners = list[EventListener]
+        self._listeners = []
 
     def add_listener(self, listener: EventListener) -> None:
         """Adds the given listener to the listeners list
@@ -21,7 +21,7 @@ class Event():
                     listeners list.
         """
 
-        self.__listeners.append(listener)
+        self._listeners.append(listener)
 
     def remove_listener(self, listener: EventListener) -> None:
         """Removes the given listener from the listeners list
@@ -31,7 +31,7 @@ class Event():
                     listeners list.
         """
 
-        self.__listeners.remove(listener)
+        self._listeners.remove(listener)
 
     def notify(self, sender: object) -> None:
         """Evokes the event handler of every event listener in listeners to notify
@@ -41,7 +41,7 @@ class Event():
                 sender (object): The sender of the event    
         """
 
-        for listener in self.__listeners:
-            listener.update(sender)
+        for listener in self._listeners:
+            listener.update(self)
         
 

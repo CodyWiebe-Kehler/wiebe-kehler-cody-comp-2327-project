@@ -50,7 +50,7 @@ class Transaction(ABC):
         self.__amount = amount
         self.__status = status
         self.__account = account
-        self.__processed_event = Event()
+        self._processed_event = Event()
 
     @property
     def transaction_id(self) -> str:
@@ -127,7 +127,7 @@ class Transaction(ABC):
                     completed
         """
 
-        return self.__processed_event
+        return self._processed_event
 
     @abstractmethod
     def process(self) -> None:
