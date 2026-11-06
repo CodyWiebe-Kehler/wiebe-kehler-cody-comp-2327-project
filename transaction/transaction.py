@@ -111,7 +111,7 @@ class Transaction(ABC):
         """
 
         # returns fee of $0.0 if no fee strategy is applied
-        if not self.__fee_strategy:
+        if not hasattr(self,'__fee_strategy'):
             return Decimal(0.0)
         else:
             return self.__fee_strategy.get_fee(self.__amount)
