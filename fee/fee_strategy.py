@@ -12,7 +12,7 @@ class FeeStrategy(ABC):
     """
 
     @abstractmethod
-    def get_fee(transaction_amount : Decimal) -> Decimal:
+    def get_fee(self, transaction_amount : Decimal) -> Decimal:
         """This method calculates the fee amount on a certain transaction
         amount.
         
