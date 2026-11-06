@@ -6,6 +6,7 @@ from decimal import Decimal
 from transaction.transaction_status import TransactionStatus
 from account.bank_account import BankAccount
 from fee.fee_strategy import FeeStrategy
+from events import *
 
 __author__ = "Cody Wiebe-Kehler"
 __version__ = "1.0.0"
@@ -49,6 +50,7 @@ class Transaction(ABC):
         self.__amount = amount
         self.__status = status
         self.__account = account
+        self.__processed_event = Event()
 
     @property
     def transaction_id(self) -> str:
@@ -115,6 +117,17 @@ class Transaction(ABC):
             return self._fee_strategy.get_fee(self.__amount)
         else:
             return Decimal(0.0)
+
+    @property
+    def on_processed(self) -> Event:
+        """Returns the processed_event attribute
+        
+            Returns:
+                processed_event (Event): The event to raise when a Transaction is
+                    completed
+        """
+
+        return self.__processed_event
 
     @abstractmethod
     def process(self) -> None:

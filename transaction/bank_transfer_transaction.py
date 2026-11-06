@@ -59,6 +59,7 @@ class BankTransferTransaction(Transaction):
             self.account.withdraw(Decimal(self.fees))
             self.__target_account.deposit(self.amount)
             self.status = TransactionStatus.PROCESSED
+            self.on_processed.notify(self)
 
     def __str__(self) -> str:
         """Returns the string representation of this BankTransferTransaction Object
