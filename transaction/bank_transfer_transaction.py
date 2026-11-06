@@ -42,18 +42,6 @@ class BankTransferTransaction(Transaction):
 
         self.__target_account = target_account
 
-    @property
-    def fees(self) -> Decimal:
-        """Returns the fees to debit from the account when the transaction
-        is processed. Amount is the greater of $1.00 or 0.7% of the transaction
-        amount.
-            
-            Returns:
-                fees (Decimal): The amount of money to debit from the account
-                    as part of transaction fees"""
-        
-        return max(Decimal(1.00), self.amount * 0.007)
-
     def process(self) -> None:
         """This method processes the transaction, transferring the money amount 
         from the this transaction objects source account to its target account.

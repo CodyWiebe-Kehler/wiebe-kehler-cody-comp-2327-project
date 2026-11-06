@@ -43,17 +43,6 @@ class CreditCardTransaction(Transaction):
 
         self.__authorization_code = authorization_code
 
-    @property
-    def fees(self) -> Decimal:
-        """Returns the fees to debit from the account when the transaction
-        is processed. Fees are 2% of transaction amount
-            
-            Returns:
-                fees (Decimal): The amount of money to debit from the account
-                    as part of transaction fees"""
-        
-        return self.amount * 0.02
-
     def process(self) -> None:
         """This method processes the transaction, withdrawing the amount and
         fees from the balance of the source account. if the process cannot be

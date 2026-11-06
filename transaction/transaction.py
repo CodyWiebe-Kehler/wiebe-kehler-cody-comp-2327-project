@@ -5,6 +5,7 @@ from abc import ABC, abstractmethod
 from decimal import Decimal
 from transaction.transaction_status import TransactionStatus
 from account.bank_account import BankAccount
+from fee.fee_strategy import FeeStrategy
 
 __author__ = "Cody Wiebe-Kehler"
 __version__ = "1.0.0"
@@ -101,7 +102,6 @@ class Transaction(ABC):
         self.__status = status
 
     @property
-    @abstractmethod
     def fees(self) -> Decimal:
         """Gets the fees to debit from the account when a transaction is processed
         
@@ -109,12 +109,22 @@ class Transaction(ABC):
                 fees (Decimal): The fee amount to debit from the account when
                     a transaction is processed
         """
-        pass
+        return self.__fee_strategy.get_fee(self.__amount)
 
     @abstractmethod
     def process(self) -> None:
         """Processes this transaction"""
         pass
+
+    def set_fee_strategy(self, strategy: FeeStrategy) -> None:
+        """Sets the fee strategy interface to be used for fee calculations
+        
+            Args:
+                strategy (FeeStrategy): The FeeStrategy interface to use for
+                    calculating fees on this transaction
+        """
+
+        self.__fee_strategy = strategy
 
     def __str__(self) -> str:
         """Returns the string representation of this Transaction Object
