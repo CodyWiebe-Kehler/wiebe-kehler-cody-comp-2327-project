@@ -109,7 +109,12 @@ class Transaction(ABC):
                 fees (Decimal): The fee amount to debit from the account when
                     a transaction is processed
         """
-        return self.__fee_strategy.get_fee(self.__amount)
+
+        # returns fee of $0.0 if no fee strategy is applied
+        if not self.__fee_strategy:
+            return Decimal(0.0)
+        else:
+            return self.__fee_strategy.get_fee(self.__amount)
 
     @abstractmethod
     def process(self) -> None:
