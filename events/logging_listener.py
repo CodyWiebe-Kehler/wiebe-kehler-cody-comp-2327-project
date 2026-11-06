@@ -21,9 +21,10 @@ class LoggingListener(EventListener):
         from transaction.transaction import Transaction
 
         if isinstance(sender, Transaction):
-            print(f"TRANSACTION PROCESSED\n{sender.__str__}")
+            print(f"TRANSACTION PROCESSED\n{sender.__str__()}")
         
         else:
+            #print(type(sender))
             raise(TypeError("sender must be a Transaction type"))
         
 

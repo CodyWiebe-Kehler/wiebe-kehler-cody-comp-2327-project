@@ -42,6 +42,6 @@ class Event():
         """
 
         for listener in self._listeners:
-            listener.update(self)
+            listener.update(sender)
         
 
