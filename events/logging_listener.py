@@ -1,10 +1,17 @@
+
+from __future__ import annotations
+
 """This module defines the EventListener interface"""
 
 __author__ = "Cody Wiebe-Kehler"
 __version__ = "1.0.0"
 
 from events.event_listener import EventListener
-from transaction.transaction import Transaction
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from transaction.transaction import Transaction
 
 class LoggingListener(EventListener):
 
