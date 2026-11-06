@@ -2,8 +2,8 @@
 the Design Patterns used in this project.
 """
 
-__author__ = ""
-__version__ = ""
+__author__ = "Cody Wiebe-Kehler"
+__version__ = "1.0.0"
 
 def main() -> None:
     """The program's main entry point."""

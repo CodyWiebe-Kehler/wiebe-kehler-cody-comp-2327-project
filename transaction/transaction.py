@@ -9,7 +9,7 @@ from fee.fee_strategy import FeeStrategy
 from events import *
 
 __author__ = "Cody Wiebe-Kehler"
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 class Transaction(ABC):
     """This class represents one transaction made by an account in the banking

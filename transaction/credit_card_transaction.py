@@ -2,7 +2,7 @@
 parent Transaction class"""
 
 __author__ = "Cody Wiebe-Kehler"
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 from transaction.transaction import Transaction
 from transaction.transaction_status import TransactionStatus
