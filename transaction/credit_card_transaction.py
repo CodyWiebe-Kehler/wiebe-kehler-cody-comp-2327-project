@@ -2,7 +2,7 @@
 parent Transaction class"""
 
 __author__ = "Cody Wiebe-Kehler"
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 from transaction.transaction import Transaction
 from transaction.transaction_status import TransactionStatus
@@ -43,17 +43,6 @@ class CreditCardTransaction(Transaction):
 
         self.__authorization_code = authorization_code
 
-    @property
-    def fees(self) -> Decimal:
-        """Returns the fees to debit from the account when the transaction
-        is processed. Fees are 2% of transaction amount
-            
-            Returns:
-                fees (Decimal): The amount of money to debit from the account
-                    as part of transaction fees"""
-        
-        return self.amount * 0.02
-
     def process(self) -> None:
         """This method processes the transaction, withdrawing the amount and
         fees from the balance of the source account. if the process cannot be
@@ -71,6 +60,7 @@ class CreditCardTransaction(Transaction):
             self.account.withdraw(self.amount)
             self.account.withdraw(self.fees)
             self.status = TransactionStatus.PROCESSED
+            self.on_processed.notify(self)
 
     def __str__(self) -> str:
         """Returns the string representation of this CreditCardTransaction Object

@@ -3,6 +3,7 @@ import unittest
 from account import *
 from transaction import *
 from decimal import Decimal
+from fee import *
 
 __author__ = "Cody Wiebe-Kehler"
 __version__ = "1.0.0"
@@ -75,13 +76,12 @@ class TestFeesProperty(unittest.TestCase):
         self.valid_account_2 = BankAccount(2, 200, self.valid_client_2, AccountStatus.ACTIVE)
 
     def test_base_fee(self):
-
         #arrange/act
         transaction = CreditCardTransaction("test transaction", 1, TransactionStatus.PENDING,
                                             self.valid_account, "test card auth code")
-
+        transaction.set_fee_strategy(PercentageFeeStrategy(Decimal('0.02')))
         #assert
-        self.assertEqual(0.02, transaction.fees)
+        self.assertEqual(Decimal('0.02'), transaction.fees)
 
 class TestProcessMethod(unittest.TestCase):
     """Defines tests for the process method"""
@@ -109,7 +109,7 @@ class TestProcessMethod(unittest.TestCase):
         #transaction amount is JUST more than source account can afford including fees
         transaction = CreditCardTransaction("test transaction", 100, TransactionStatus.PENDING,
                                                             self.valid_account, "test card auth code")
-
+        transaction.set_fee_strategy(PercentageFeeStrategy(Decimal('0.02')))
         #act
         transaction.process()
         
@@ -131,7 +131,7 @@ class TestProcessMethod(unittest.TestCase):
         #arrange
         transaction = CreditCardTransaction("test transaction", 10, TransactionStatus.PENDING,
                                                             self.valid_account, "test card auth code")
-
+        transaction.set_fee_strategy(PercentageFeeStrategy(Decimal('0.02')))
         #act
         transaction.process()
         

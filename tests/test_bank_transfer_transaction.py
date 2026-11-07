@@ -3,6 +3,7 @@ import unittest
 from account import *
 from transaction import *
 from decimal import Decimal
+from fee import *
 
 __author__ = "Cody Wiebe-Kehler"
 __version__ = "1.0.0"
@@ -79,16 +80,16 @@ class TestFeesProperty(unittest.TestCase):
         #arrange/act
         transaction = BankTransferTransaction("test transaction", 1, TransactionStatus.PENDING,
                                             self.valid_account, self.valid_account_2)
-
+        transaction.set_fee_strategy(BasePercentageFeeStrategy(Decimal('1.00'),Decimal('0.007')))
+        
         #assert
         self.assertEqual(1, transaction.fees)
 
     def test_percentage_fee(self):
-
         #arrange/act
         transaction = BankTransferTransaction("test transaction", 1000, TransactionStatus.PENDING,
                                                     self.valid_account, self.valid_account_2)
-
+        transaction.set_fee_strategy(BasePercentageFeeStrategy(Decimal('1.00'),Decimal('0.007')))
         #assert
         self.assertEqual(7, transaction.fees)
 
@@ -129,7 +130,7 @@ class TestProcessMethod(unittest.TestCase):
         #transaction amount is JUST more than source account can afford including fees
         transaction = BankTransferTransaction("test transaction", 100, TransactionStatus.PENDING,
                                                             self.valid_account, self.valid_account_2)
-
+        transaction.set_fee_strategy(BasePercentageFeeStrategy(Decimal('1.00'),Decimal('0.007')))
         #act
         transaction.process()
         
@@ -140,7 +141,7 @@ class TestProcessMethod(unittest.TestCase):
         #arrange
         transaction = BankTransferTransaction("test transaction", 10, TransactionStatus.PENDING,
                                                             self.valid_account, self.valid_account_2)
-
+        transaction.set_fee_strategy(BasePercentageFeeStrategy(Decimal('1.00'),Decimal('0.007')))
         #act
         transaction.process()
         

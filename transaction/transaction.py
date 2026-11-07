@@ -5,9 +5,11 @@ from abc import ABC, abstractmethod
 from decimal import Decimal
 from transaction.transaction_status import TransactionStatus
 from account.bank_account import BankAccount
+from fee.fee_strategy import FeeStrategy
+from events import *
 
 __author__ = "Cody Wiebe-Kehler"
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 class Transaction(ABC):
     """This class represents one transaction made by an account in the banking
@@ -48,6 +50,7 @@ class Transaction(ABC):
         self.__amount = amount
         self.__status = status
         self.__account = account
+        self._processed_event = Event()
 
     @property
     def transaction_id(self) -> str:
@@ -101,7 +104,6 @@ class Transaction(ABC):
         self.__status = status
 
     @property
-    @abstractmethod
     def fees(self) -> Decimal:
         """Gets the fees to debit from the account when a transaction is processed
         
@@ -109,12 +111,38 @@ class Transaction(ABC):
                 fees (Decimal): The fee amount to debit from the account when
                     a transaction is processed
         """
-        pass
+
+        # returns fee of $0.0 if no fee strategy is applied
+        if hasattr(self,'_fee_strategy'):
+            return self._fee_strategy.get_fee(self.__amount)
+        else:
+            return Decimal(0.0)
+
+    @property
+    def on_processed(self) -> Event:
+        """Returns the processed_event attribute
+        
+            Returns:
+                processed_event (Event): The event to raise when a Transaction is
+                    completed
+        """
+
+        return self._processed_event
 
     @abstractmethod
     def process(self) -> None:
         """Processes this transaction"""
         pass
+
+    def set_fee_strategy(self, strategy: FeeStrategy) -> None:
+        """Sets the fee strategy interface to be used for fee calculations
+        
+            Args:
+                strategy (FeeStrategy): The FeeStrategy interface to use for
+                    calculating fees on this transaction
+        """
+
+        self._fee_strategy = strategy
 
     def __str__(self) -> str:
         """Returns the string representation of this Transaction Object
