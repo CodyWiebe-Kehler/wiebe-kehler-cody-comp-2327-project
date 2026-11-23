@@ -18,3 +18,5 @@ The events package implements the Observer pattern via the Event class, the Even
 interface, and its concrete class LoggingListener. This package allowed for the
 transaction class to be modified to notify its listeners when a transaction is
 processed.
+
+## Assignment 4
