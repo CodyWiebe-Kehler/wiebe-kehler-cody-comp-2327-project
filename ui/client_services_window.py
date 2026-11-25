@@ -25,6 +25,10 @@ class ClientServicesWindow(MainWindow):
 
         self._client_number_line_edit.textChanged.connect(self.__client_number_changed)
         self._search_button.clicked.connect(self.__search_button_clicked)
+        
+        self._exit_action.triggered.connect(self.__exitActionClicked)
+        self._clear_action.triggered.connect(self.__clearActionClicked)
+        self._about_action.triggered.connect(self.__aboutActionClicked)
 
         #UI event handler connections
         #self._search_button.clicked.connect()
@@ -99,3 +103,13 @@ class ClientServicesWindow(MainWindow):
             self._search_error_label.setEnabled(True)
             self._search_error_label.setHidden(False)
             self._search_error_label.setText("Client not found")
+
+    def __exitActionClicked(self):
+        self.close()
+
+    def __clearActionClicked(self):
+        self.__set_default_ui_state()
+        self._client_number_line_edit.setText("")
+
+    def __aboutActionClicked(self):
+        pass
