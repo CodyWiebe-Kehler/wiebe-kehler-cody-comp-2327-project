@@ -5,9 +5,12 @@ __version__ = "1.0.0"
 
 from account import *
 from ui.base.main_window import MainWindow
+from ui.client_transaction_dialog import ClientTransactionDialog
 
 from PySide6.QtWidgets import (QTableWidget,
                                QTableWidgetItem)
+
+from decimal import Decimal
 
 class ClientServicesWindow(MainWindow):
     """Represents the primary window for viewing Client and Bank Account data"""
@@ -29,6 +32,7 @@ class ClientServicesWindow(MainWindow):
         self._exit_action.triggered.connect(self.__exitActionClicked)
         self._clear_action.triggered.connect(self.__clearActionClicked)
         self._about_action.triggered.connect(self.__aboutActionClicked)
+        self._account_table.itemDoubleClicked.connect(self.__accountDoubleClicked)
 
         #UI event handler connections
         #self._search_button.clicked.connect()
@@ -46,8 +50,8 @@ class ClientServicesWindow(MainWindow):
         
         """
         
-        return [["client id","first name","last name","email@valid.com",
-                 [["account id","client id","balance","1"],["account id 2","client id","balance 2","1"]]]
+        return [["111","first name","last name","email@valid.com",
+                 [["111111","111","10.1","1"],["2222222","111","20.22","1"]]]
                 ]
 
     def __set_default_ui_state(self):
@@ -113,3 +117,27 @@ class ClientServicesWindow(MainWindow):
 
     def __aboutActionClicked(self):
         pass
+
+    def __accountDoubleClicked(self,item: QTableWidgetItem):
+        #print(item)
+        #print(item.text())
+        #print(f"col:{item.column()},row:{item.row()}")
+
+        #grabs client and account from self.__clients based off table selection
+        # and client number line edit 
+        curClient = []
+        for client in self.__clients:
+            if client[0] == self._client_number_line_edit.text():
+                curClient = client
+
+        accounts = client[4]
+        accountArray = accounts[item.row()]
+
+        #creates Client and BankAccount objects from the stored arrays 
+        clientObj = Client(int(curClient[0]),f"{curClient[1]} {curClient[2]}",curClient[3])
+        accountObj = BankAccount(int(accountArray[0]),Decimal(accountArray[2]), client, AccountStatus(int(accountArray[3])))
+        print(f"Selected Client {clientObj}")
+        print(f"Selected Account{accountObj}")
+
+        TransactionDialog = ClientTransactionDialog(accountObj)
+        TransactionDialog.exec()
