@@ -29,10 +29,10 @@ class ClientServicesWindow(MainWindow):
         self._client_number_line_edit.textChanged.connect(self.__client_number_changed)
         self._search_button.clicked.connect(self.__search_button_clicked)
         
-        self._exit_action.triggered.connect(self.__exitActionClicked)
-        self._clear_action.triggered.connect(self.__clearActionClicked)
-        self._about_action.triggered.connect(self.__aboutActionClicked)
-        self._account_table.itemDoubleClicked.connect(self.__accountDoubleClicked)
+        self._exit_action.triggered.connect(self.__exit_action_clicked)
+        self._clear_action.triggered.connect(self.__clear_action_clicked)
+        self._about_action.triggered.connect(self.__about_action_clicked)
+        self._account_table.itemDoubleClicked.connect(self.__account_double_clicked)
 
         #UI event handler connections
         #self._search_button.clicked.connect()
@@ -111,20 +111,20 @@ class ClientServicesWindow(MainWindow):
             self._search_error_label.setHidden(False)
             self._search_error_label.setText("Client not found")
 
-    def __exitActionClicked(self) -> None:
+    def __exit_action_clicked(self) -> None:
         """Handles the on clicked event for exit action"""
         self.close()
 
-    def __clearActionClicked(self) -> None:
+    def __clear_action_clicked(self) -> None:
         """Handles the on clicked event for clear action"""
         self.__set_default_ui_state()
         self._client_number_line_edit.setText("")
 
-    def __aboutActionClicked(self) -> None:
+    def __about_action_clicked(self) -> None:
         """Handles the on clicked event for about action"""
         pass
 
-    def __accountDoubleClicked(self, item: QTableWidgetItem) -> None:
+    def __account_double_clicked(self, item: QTableWidgetItem) -> None:
         """Handles onclicked event for the account table by opening 
             ClientTransactionDialog for selected account
         
@@ -132,7 +132,7 @@ class ClientServicesWindow(MainWindow):
                 item (QTableWidgetItem): The cell of the table that was double 
                     clicked on
         """
-        
+
         #grabs client and account from self.__clients based off table selection
         # and client number line edit 
         curClient = []
