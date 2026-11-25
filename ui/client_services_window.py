@@ -15,7 +15,7 @@ from decimal import Decimal
 class ClientServicesWindow(MainWindow):
     """Represents the primary window for viewing Client and Bank Account data"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initializes and instance of the ClientServicesWindow class"""
         super().__init__()
 
@@ -54,7 +54,8 @@ class ClientServicesWindow(MainWindow):
                  [["111111","111","10.1","1"],["2222222","111","20.22","1"]]]
                 ]
 
-    def __set_default_ui_state(self):
+    def __set_default_ui_state(self) -> None:
+        """Configures UI widgets to thier default expected states"""
         self._search_button.setEnabled(True)
         self._search_button.setDefault(True)
         self._client_number_line_edit.setFocus()
@@ -68,10 +69,12 @@ class ClientServicesWindow(MainWindow):
         self._email_label.setText("")
         self._search_error_label.setHidden(True)
 
-    def __client_number_changed(self):
+    def __client_number_changed(self) -> None:
+        """handles onclicked event for client number line edit text changed"""
         self.__set_default_ui_state()
 
-    def __search_button_clicked(self):
+    def __search_button_clicked(self) -> None:
+        """Handles onclicked event for search button clicked"""
         self._client_number_line_edit.setFocus()
 
         #temp storage for searched text and found client
@@ -108,21 +111,28 @@ class ClientServicesWindow(MainWindow):
             self._search_error_label.setHidden(False)
             self._search_error_label.setText("Client not found")
 
-    def __exitActionClicked(self):
+    def __exitActionClicked(self) -> None:
+        """Handles the on clicked event for exit action"""
         self.close()
 
-    def __clearActionClicked(self):
+    def __clearActionClicked(self) -> None:
+        """Handles the on clicked event for clear action"""
         self.__set_default_ui_state()
         self._client_number_line_edit.setText("")
 
-    def __aboutActionClicked(self):
+    def __aboutActionClicked(self) -> None:
+        """Handles the on clicked event for about action"""
         pass
 
-    def __accountDoubleClicked(self,item: QTableWidgetItem):
-        #print(item)
-        #print(item.text())
-        #print(f"col:{item.column()},row:{item.row()}")
-
+    def __accountDoubleClicked(self, item: QTableWidgetItem) -> None:
+        """Handles onclicked event for the account table by opening 
+            ClientTransactionDialog for selected account
+        
+            args:
+                item (QTableWidgetItem): The cell of the table that was double 
+                    clicked on
+        """
+        
         #grabs client and account from self.__clients based off table selection
         # and client number line edit 
         curClient = []
@@ -139,5 +149,6 @@ class ClientServicesWindow(MainWindow):
         print(f"Selected Client {clientObj}")
         print(f"Selected Account{accountObj}")
 
+        #opens ClientTransactionDialog with the accountObj for reference
         TransactionDialog = ClientTransactionDialog(accountObj)
         TransactionDialog.exec()

@@ -10,7 +10,7 @@ from ui.base.transaction_dialog import TransactionDialog
 class ClientTransactionDialog(TransactionDialog):
     """Represents """
 
-    def __init__(self, account: BankAccount):
+    def __init__(self, account: BankAccount) -> None:
         """Initializes an instance of a ClientTransactionDialog"""
         super().__init__()
 
@@ -19,7 +19,7 @@ class ClientTransactionDialog(TransactionDialog):
         self.setWindowTitle("Yarrow-Mullein Bank :: Account Transaction")
         self.__set_default_ui_state()
 
-    def __set_default_ui_state(self):
+    def __set_default_ui_state(self) -> None:
         """Configures the widgets to thier default state"""
 
         #sets values from account object
