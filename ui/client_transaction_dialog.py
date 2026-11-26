@@ -7,6 +7,8 @@ from account import *
 
 from ui.base.transaction_dialog import TransactionDialog
 
+from PySide6.QtWidgets import (QMessageBox)
+
 class ClientTransactionDialog(TransactionDialog):
     """Represents a dialog window to make a transaction on the selected account"""
 
@@ -18,6 +20,9 @@ class ClientTransactionDialog(TransactionDialog):
 
         self.setWindowTitle("Yarrow-Mullein Bank :: Account Transaction")
         self.__set_default_ui_state()
+
+        #connect events and handlers
+        self._process_transaction_button.clicked.connect(self.__process_button_clicked)
 
     def __set_default_ui_state(self) -> None:
         """Configures the widgets to thier default state"""
@@ -31,7 +36,48 @@ class ClientTransactionDialog(TransactionDialog):
         self._transaction_type_combobox.setCurrentIndex(-1)
 
     def __process_button_clicked(self):
-        pass
+        """Handles on clicked functionality for process button"""
+
+        #transaction type not selected error
+        if self._transaction_type_combobox.currentIndex == -1:
+            self._transaction_error_label.setText("Please choose a transaction type")
+            self._transaction_error_label.setHidden(False)
+        #amount invalid error
+        elif not self._amount_line_edit.text().isnumeric():
+            self._transaction_error_label.setText("Please enter a valid amount")
+            self._transaction_error_label.setHidden(False)
+        #valid input
+        else:
+            self._transaction_error_label.setText("")
+            self._transaction_error_label.setHidden(True)
+
+            confirm = QMessageBox.question(self, "Process Transaction",
+                                           f"{self._transaction_type_combobox.currentIndex} "
+                                            f"${self._amount_line_edit.text()}"
+                                            f"\nComplete this transaction?",
+                                           QMessageBox.StandardButton.Yes | 
+                                           QMessageBox.StandardButton.No | 
+                                           QMessageBox.StandardButton.Cancel,
+                                           QMessageBox.StandardButton.Cancel)
+
+            if confirm == QMessageBox.StandardButton.Yes:
+                try:
+                    #process transaction
+                    raise(TypeError("made up error"))
+
+                    self.done(0)
+                except:
+                    #error dialog
+                    QMessageBox.critical(self,"Transaction Error",
+                                         "An error occurred while processing the transaction",
+                                         QMessageBox.StandardButton.Ok,
+                                         QMessageBox.StandardButton.Ok)
+
+                    self.done(1)
+
+            elif confirm == QMessageBox.StandardButton.No:
+                self.done(0)
+
 
         
         
