@@ -10,6 +10,7 @@ from transaction import *
 
 from ui.base.transaction_dialog import TransactionDialog
 
+from PySide6.QtGui import QDoubleValidator
 from PySide6.QtWidgets import QMessageBox
 from PySide6.QtCore import Signal
 
@@ -38,6 +39,10 @@ class ClientTransactionDialog(TransactionDialog):
         self._current_balance_label.setText(f"${str(self.__account.balance)}")
 
         self._amount_line_edit.setText("")
+        amount_validator = QDoubleValidator(self._amount_line_edit,0,None,2)
+        amount_validator.setNotation(QDoubleValidator.Notation.StandardNotation)
+        self._amount_line_edit.setValidator(amount_validator)
+
         self._transaction_error_label.setText("")
         self._transaction_type_combobox.setCurrentIndex(-1)
 
@@ -49,13 +54,16 @@ class ClientTransactionDialog(TransactionDialog):
             self._transaction_error_label.setText("Please choose a transaction type")
             self._transaction_error_label.setHidden(False)
         #amount invalid error
-        elif not self._amount_line_edit.text().isnumeric():
+        elif not self._amount_line_edit.hasAcceptableInput() or Decimal(self._amount_line_edit.text()) < 0:
             self._transaction_error_label.setText("Please enter a valid amount")
             self._transaction_error_label.setHidden(False)
         #valid input
         else:
             self._transaction_error_label.setText("")
             self._transaction_error_label.setHidden(True)
+
+            #rounds the value in line edit to 2 decimal places before any calculations might take place
+            self._amount_line_edit.setText(str(round(Decimal(self._amount_line_edit.text()),2)))
 
             confirm = QMessageBox.question(self, "Process Transaction",
                                            f"{self._transaction_type_combobox.currentIndex} "
