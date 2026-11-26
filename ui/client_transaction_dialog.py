@@ -7,10 +7,13 @@ from account import *
 
 from ui.base.transaction_dialog import TransactionDialog
 
-from PySide6.QtWidgets import (QMessageBox)
+from PySide6.QtWidgets import QMessageBox
+from PySide6.QtCore import Signal
 
 class ClientTransactionDialog(TransactionDialog):
     """Represents a dialog window to make a transaction on the selected account"""
+
+    _process_transaction = Signal(str)
 
     def __init__(self, account: BankAccount) -> None:
         """Initializes an instance of a ClientTransactionDialog"""
@@ -63,8 +66,8 @@ class ClientTransactionDialog(TransactionDialog):
             if confirm == QMessageBox.StandardButton.Yes:
                 try:
                     #process transaction
-                    raise(TypeError("made up error"))
-
+                    
+                    self._process_transaction.emit("test")
                     self.done(0)
                 except:
                     #error dialog

@@ -151,4 +151,11 @@ class ClientServicesWindow(MainWindow):
 
         #opens ClientTransactionDialog with the accountObj for reference
         TransactionDialog = ClientTransactionDialog(accountObj)
+        TransactionDialog._process_transaction.connect(self.__process_transaction)
         TransactionDialog.exec()
+
+    def __process_transaction(self,string):
+        """Handles an incoming transaction, and applies it to the appropriate account"""
+
+        print(f"transaction processed: {string}")
+
