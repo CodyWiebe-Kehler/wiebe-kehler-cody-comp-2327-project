@@ -3,7 +3,10 @@
 __author__ = "Cody Wiebe-Kehler"
 __version__ = "1.0.0"
 
+from decimal import Decimal
+
 from account import *
+from transaction import *
 
 from ui.base.transaction_dialog import TransactionDialog
 
@@ -13,7 +16,7 @@ from PySide6.QtCore import Signal
 class ClientTransactionDialog(TransactionDialog):
     """Represents a dialog window to make a transaction on the selected account"""
 
-    _process_transaction = Signal(str)
+    _process_transaction = Signal(BankAccount)
 
     def __init__(self, account: BankAccount) -> None:
         """Initializes an instance of a ClientTransactionDialog"""
@@ -66,8 +69,14 @@ class ClientTransactionDialog(TransactionDialog):
             if confirm == QMessageBox.StandardButton.Yes:
                 try:
                     #process transaction
-                    
-                    self._process_transaction.emit("test")
+                    #withdrawl/deposit to self.__account by line edit amout
+                    if self._transaction_type_combobox.currentIndex() == 0:
+                        self.__account.deposit(Decimal(self._amount_line_edit.text()))
+                    elif self._transaction_type_combobox.currentIndex() == 1:
+                        self.__account.withdraw(Decimal(self._amount_line_edit.text()))
+
+                    #emit(self.__account)
+                    self._process_transaction.emit(self.__account)
                     self.done(0)
                 except:
                     #error dialog

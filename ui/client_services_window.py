@@ -50,9 +50,11 @@ class ClientServicesWindow(MainWindow):
         
         """
         
-        return [["111","first name","last name","email@valid.com",
+        clients = [["111","first name","last name","email@valid.com",
                  [["111111","111","10.1","1"],["2222222","111","20.22","1"]]]
                 ]
+
+        return clients
 
     def __set_default_ui_state(self) -> None:
         """Configures UI widgets to thier default expected states"""
@@ -124,7 +126,32 @@ class ClientServicesWindow(MainWindow):
         """Handles the on clicked event for about action"""
         pass
 
-    def __account_double_clicked(self, item: QTableWidgetItem) -> None:
+    def __find_selected_account(self, currentTableWidgetItem: QTableWidgetItem) -> list:
+        """Helper function which returns a reference to the array in self.__clients 
+            that is represented by the passed in QTableWidgetItem.
+            
+            Args:
+                currentTableWidgetItem (QTableWidgetItem): The table widget item
+                    you want to find the matching self.__clients account array for
+                    
+            Returns:
+                list[str]: The reference to the self.__clients array representing
+                    the account that matches the input tableWidget
+        """
+        #grab currently selected client from self.__clients based on searched client number
+        curClient = []
+        for client in self.__clients:
+            if client[0] == self._client_number_line_edit.text():
+                curClient = client
+
+        #pull the account based on selected widget row
+        accounts = client[4]
+        accountArray = accounts[currentTableWidgetItem.row()]
+
+        return accountArray
+
+
+    def __account_double_clicked(self, selectedTableWidget: QTableWidgetItem) -> None:
         """Handles onclicked event for the account table by opening 
             ClientTransactionDialog for selected account
         
@@ -139,9 +166,8 @@ class ClientServicesWindow(MainWindow):
         for client in self.__clients:
             if client[0] == self._client_number_line_edit.text():
                 curClient = client
-
-        accounts = client[4]
-        accountArray = accounts[item.row()]
+        
+        accountArray = self.__find_selected_account(selectedTableWidget)
 
         #creates Client and BankAccount objects from the stored arrays 
         clientObj = Client(int(curClient[0]),f"{curClient[1]} {curClient[2]}",curClient[3])
@@ -154,8 +180,27 @@ class ClientServicesWindow(MainWindow):
         TransactionDialog._process_transaction.connect(self.__process_transaction)
         TransactionDialog.exec()
 
-    def __process_transaction(self,string):
-        """Handles an incoming transaction, and applies it to the appropriate account"""
+    def __process_transaction(self,updatedAccount: BankAccount):
+        """Handles an incoming transaction, and applies it to the appropriate account
+        
+            args:
+                account (BankAccount): The bank account object, with the updated
+                    balance from the transaction dialog
+        """
 
-        print(f"transaction processed: {string}")
+        print(f"transaction signalled, new account: {updatedAccount}")
+        #get selected account
+        item = self._account_table.selectedItems()[0]
+        accountArray = self.__find_selected_account(item)
+        print(accountArray)
+
+        #update self.__clients arrays to match passed in account balance value
+
+        accountArray[2] = str(updatedAccount.balance)
+
+        #refresh UI and table with current information
+        self.__set_default_ui_state()
+        self.__search_button_clicked()
+
+
 
