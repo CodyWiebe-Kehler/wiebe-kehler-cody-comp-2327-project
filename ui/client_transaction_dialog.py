@@ -66,7 +66,7 @@ class ClientTransactionDialog(TransactionDialog):
             self._amount_line_edit.setText(str(round(Decimal(self._amount_line_edit.text()),2)))
 
             confirm = QMessageBox.question(self, "Process Transaction",
-                                           f"{self._transaction_type_combobox.currentIndex} "
+                                           f"{self._transaction_type_combobox.currentText()} "
                                             f"${self._amount_line_edit.text()}"
                                             f"\nComplete this transaction?",
                                            QMessageBox.StandardButton.Yes | 
