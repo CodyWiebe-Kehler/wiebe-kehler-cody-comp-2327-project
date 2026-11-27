@@ -6,6 +6,7 @@ __version__ = "1.0.0"
 from account import *
 from ui.base.main_window import MainWindow
 from ui.client_transaction_dialog import ClientTransactionDialog
+from ui.client_services_about_dialog import ClientServicesAboutDialog
 
 from PySide6.QtWidgets import (QTableWidget,
                                QTableWidgetItem)
@@ -124,7 +125,8 @@ class ClientServicesWindow(MainWindow):
 
     def __about_action_clicked(self) -> None:
         """Handles the on clicked event for about action"""
-        pass
+        about_dialog = ClientServicesAboutDialog()
+        about_dialog.exec()
 
     def __find_selected_account(self, currentTableWidgetItem: QTableWidgetItem) -> list:
         """Helper function which returns a reference to the array in self.__clients 
