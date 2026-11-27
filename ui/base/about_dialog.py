@@ -4,28 +4,17 @@ __author__ = "Cody Wiebe-Kehler"
 __version__ = "1.0.0"
 
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QAction, QFont
-from PySide6.QtWidgets import (QMainWindow,
-                               QDialog,
-                               QWidget,
-                               QGroupBox,
+from PySide6.QtWidgets import (QDialog,
                                QLayout,
-                               QHBoxLayout,
                                QVBoxLayout,
-                               QFormLayout,
                                QLabel,
-                               QLineEdit,
-                               QPushButton,
-                               QTableWidget,
-                               QHeaderView,
-                               QAbstractItemView,
-                               QSizePolicy)
+                               QPushButton,)
 
 class AboutDialog(QDialog):
     """Represents a dialog window that contains information about a program.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initializes a new instance of the AboutDialog class."""
 
         super().__init__()
@@ -33,6 +22,7 @@ class AboutDialog(QDialog):
         self.setFixedWidth(300)
         self.setFixedHeight(140)
         self.setModal(True)
+        self.setWindowTitle("About")
 
         main_layout = QVBoxLayout(self)
         main_layout.setAlignment(Qt.AlignmentFlag.AlignHCenter)
