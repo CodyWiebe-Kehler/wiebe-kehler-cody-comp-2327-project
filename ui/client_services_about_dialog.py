@@ -12,3 +12,7 @@ class ClientServicesAboutDialog(AboutDialog):
         """Initializes and instance of the ClientServicesAboutDialog class"""
         super().__init__()
 
+        self._title_lable.setText("About Client Services")
+        self._version_label.setText("Version: 1.0.0")
+        self._copyright_label.setText("©2026 Cody Wiebe-Kehler cwiebe-kehler@rrc.ca")
+

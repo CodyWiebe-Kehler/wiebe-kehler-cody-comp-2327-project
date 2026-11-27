@@ -54,6 +54,7 @@ class AboutDialog(QDialog):
         self._copyright_label = QLabel("© 20xx name email@domain.com")
 
         self._ok_button = QPushButton("Ok")
+        self._ok_button.clicked.connect(self._ok_button_on_click)
 
         #adds widgets to layout
         main_layout.addWidget(self._title_lable,0,Qt.AlignmentFlag.AlignHCenter)
@@ -61,3 +62,7 @@ class AboutDialog(QDialog):
         main_layout.addWidget(self._pyside6_credit_label,0,Qt.AlignmentFlag.AlignHCenter)
         main_layout.addWidget(self._copyright_label,0,Qt.AlignmentFlag.AlignHCenter)
         main_layout.addWidget(self._ok_button,0)
+
+    def _ok_button_on_click(self) -> None:
+        """Handles clicked functionality for ok button"""
+        self.done(0)
