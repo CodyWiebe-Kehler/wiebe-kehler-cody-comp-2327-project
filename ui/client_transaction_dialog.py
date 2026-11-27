@@ -20,7 +20,12 @@ class ClientTransactionDialog(TransactionDialog):
     _process_transaction = Signal(BankAccount)
 
     def __init__(self, account: BankAccount) -> None:
-        """Initializes an instance of a ClientTransactionDialog"""
+        """Initializes an instance of a ClientTransactionDialog
+        
+            Args:
+                account (BankAccount): The bank account object to display
+                    information for and process transactions on.
+        """
         super().__init__()
 
         self.__account = account
@@ -46,7 +51,7 @@ class ClientTransactionDialog(TransactionDialog):
         self._transaction_error_label.setText("")
         self._transaction_type_combobox.setCurrentIndex(-1)
 
-    def __process_button_clicked(self):
+    def __process_button_clicked(self) -> None:
         """Handles on clicked functionality for process button"""
 
         #transaction type not selected error

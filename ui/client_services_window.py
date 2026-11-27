@@ -38,17 +38,15 @@ class ClientServicesWindow(MainWindow):
         #UI event handler connections
         #self._search_button.clicked.connect()
 
-    def __load_client_data(self) -> list[Client]:
-        """Returns a list of all clients and thier accounts in the system"""
+    def __load_client_data(self) -> list[list[str,str,str,str,list[str,str,str,str]]]:
+        """Returns a list of all clients and thier accounts in the system
 
-        """returns fixed test data for our purposes
-        
-        test data format list[client]
-        where client = ["client id", "first name", "last name", "email", list[account data]]
-        where account data = ["account id", "client id", "balance", "status"]
-        
-        where account status is a number in AccountStatus enumeration
-        
+            Returns: 
+                Clients list: Test data is fixed for our purposes
+                    test data format list[client]
+                    where client = ["client id", "first name", "last name", "email", list[account data]]
+                    where account data = ["account id", "client id", "balance", "status"]
+                    where account status is a value in AccountStatus enumeration
         """
         
         clients = [["111","first name","last name","email@valid.com",
@@ -128,7 +126,7 @@ class ClientServicesWindow(MainWindow):
         about_dialog = ClientServicesAboutDialog()
         about_dialog.exec()
 
-    def __find_selected_account(self, currentTableWidgetItem: QTableWidgetItem) -> list:
+    def __find_selected_account(self, currentTableWidgetItem: QTableWidgetItem) -> list[str]:
         """Helper function which returns a reference to the array in self.__clients 
             that is represented by the passed in QTableWidgetItem.
             
@@ -182,10 +180,10 @@ class ClientServicesWindow(MainWindow):
         TransactionDialog._process_transaction.connect(self.__process_transaction)
         TransactionDialog.exec()
 
-    def __process_transaction(self,updatedAccount: BankAccount):
+    def __process_transaction(self,updatedAccount: BankAccount) -> None:
         """Handles an incoming transaction, and applies it to the appropriate account
         
-            args:
+            Args:
                 account (BankAccount): The bank account object, with the updated
                     balance from the transaction dialog
         """
